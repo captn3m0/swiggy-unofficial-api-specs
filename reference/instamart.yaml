@@ -1,0 +1,199 @@
+openapi: 3.1.0
+x-stoplight:
+  id: mrzys1wdmnyj3
+info:
+  title: Unofficial Swiggy Instamart API
+  version: '1.0'
+  summary: 'Swiggy OpenAPI Specification for the Orders API, used for Order and Restaurant Data'
+  contact:
+    name: Nemo
+    url: 'https://captnemo.in/contact/'
+    email: swiggy.openapi@captnemo.in
+  description: Welcome to the unofficial Swiggy API OpenAPI Specification.
+servers:
+  - url: 'https://dash.swiggy.com/api/v1'
+paths:
+  /order/history:
+    get:
+      summary: Get Swiggy Orders List
+      operationId: get-account-orders
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - DASH
+              - HANDPICKED
+              - 'DASH,HANDPICKED'
+          in: query
+          name: order_type
+          required: true
+          description: What kind of orders to return
+        - schema:
+            type: string
+          in: query
+          name: from_time
+          description: Unix Epoch timestamp in milliseconds. Orders before this timestamp will be returned
+          required: true
+        - schema:
+            type: number
+          in: query
+          name: count
+          description: Number of orders to return.
+          required: true
+      description: Gets a list of Swiggy Instamart Orders
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  statusMessage:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      total_orders:
+                        type: integer
+                      orders:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            order_group_id:
+                              type: string
+                            customer_id:
+                              type: string
+                            order_id:
+                              type: string
+                            order_type:
+                              type: string
+                            order_data:
+                              type: object
+                              properties:
+                                order_group_id:
+                                  type: string
+                                customer_id:
+                                  type: string
+                                orders:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      order_id:
+                                        type: string
+                                      customer_id:
+                                        type: string
+                                      payment_info:
+                                        type: 'null'
+                                      order_jobs:
+                                        type: array
+                                        items:
+                                          type: object
+                                          properties:
+                                            order_job_id:
+                                              type: string
+                                            customer_id:
+                                              type: string
+                                            payment_info:
+                                              type: array
+                                              items:
+                                                type: object
+                                                properties:
+                                                  paymentMethodDisplayName:
+                                                    type: string
+                                                  transaction_id:
+                                                    type: string
+                                                  refund_for_transaction_id:
+                                                    type: 'null'
+                                                  payment_status:
+                                                    type: string
+                                                  customer_id:
+                                                    type: string
+                                                  payment_type:
+                                                    type: string
+                                                  metadata:
+                                                    type: string
+                                                  transaction_amount:
+                                                    type: integer
+                                                  payment_method:
+                                                    type: string
+                                                  order_context:
+                                                    type: string
+                                                  reason:
+                                                    type: 'null'
+                                                  created_at:
+                                                    type: integer
+                                                  updated_at:
+                                                    type: integer
+                                            merchant_id:
+                                              type: string
+                                            status:
+                                              type: string
+                                            metadata:
+                                              type: string
+                                            status_meta:
+                                              type: string
+                                            customer_info:
+                                              type: string
+                                            created_at:
+                                              type: integer
+                                            updated_at:
+                                              type: integer
+                                      order_type:
+                                        type: string
+                                      order_metadata:
+                                        type: 'null'
+                                      coupon_code:
+                                        type: 'null'
+                                      created_at:
+                                        type: integer
+                                      updated_at:
+                                        type: integer
+                                payment_info:
+                                  type: 'null'
+                                created_at:
+                                  type: integer
+                                updated_at:
+                                  type: integer
+                                transaction_payment_details:
+                                  type: 'null'
+                            refund_details:
+                              type: object
+                              properties:
+                                refund_initiated:
+                                  type: string
+                                refund_processed:
+                                  type: string
+                            created_at:
+                              type: integer
+                            history_status:
+                              type: string
+                            details_text:
+                              type: object
+                              properties:
+                                line1:
+                                  type: string
+                                line2:
+                                  type: 'null'
+      security:
+        - tid: []
+        - token: []
+    parameters: []
+components:
+  schemas: {}
+  securitySchemes:
+    tid:
+      name: tid
+      type: apiKey
+      in: header
+      description: |
+        Transaction ID perhaps
+    token:
+      name: token
+      type: apiKey
+      in: header
+      description: Session ID

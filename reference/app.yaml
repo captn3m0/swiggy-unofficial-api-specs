@@ -1,0 +1,940 @@
+openapi: 3.1.0
+x-stoplight:
+  id: fw8nusgay380g
+info:
+  title: Unofficial Swiggy Application API
+  version: '1.0'
+  summary: 'Swiggy OpenAPI Specification for the Application API, used for Order and Restaurant Data'
+  contact:
+    name: Nemo
+    url: 'https://captnemo.in/contact/'
+    email: swiggy.openapi@captnemo.in
+  description: Welcome to the unofficial Swiggy API OpenAPI Specification.
+servers:
+  - url: 'https://app.swiggy.com/v1'
+    description: Profile Service
+paths:
+  /order/getSingleOrder:
+    get:
+      summary: Get Single Order
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  statusMessage:
+                    type: string
+                  statusTitle:
+                    type: 'null'
+                  ctaText:
+                    type: 'null'
+                  ctaAction:
+                    type: 'null'
+                  data:
+                    type: object
+                    properties:
+                      customer_care_number:
+                        type: string
+                      orders:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            sharedOrder:
+                              type: boolean
+                            previousOrderId:
+                              type: integer
+                            tipDetails:
+                              type: object
+                              properties:
+                                type:
+                                  type: string
+                                experimentId:
+                                  type: string
+                            deliveryFeeCouponBreakup:
+                              type: object
+                              properties:
+                                thresholdFee:
+                                  type: integer
+                                distanceFee:
+                                  type: integer
+                                timeFee:
+                                  type: integer
+                                specialFee:
+                                  type: integer
+                                totalDeliveryFeeDiscount:
+                                  type: integer
+                                discountShare:
+                                  type: object
+                                  properties:
+                                    swiggyDiscount:
+                                      type: integer
+                                    restaurantDiscount:
+                                      type: integer
+                            order_id:
+                              type: integer
+                            delivery_address:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                version:
+                                  type: integer
+                                name:
+                                  type: string
+                                address_line1:
+                                  type: string
+                                address_line2:
+                                  type: string
+                                address:
+                                  type: string
+                                landmark:
+                                  type: string
+                                area:
+                                  type: string
+                                mobile:
+                                  type: string
+                                alternate_mobile:
+                                  type: string
+                                annotation:
+                                  type: string
+                                instructions:
+                                  type: string
+                                voice_directions_s3_uri:
+                                  type: string
+                                email:
+                                  type: string
+                                flat_no:
+                                  type: string
+                                city:
+                                  type: string
+                                lat:
+                                  type: string
+                                lng:
+                                  type: string
+                                is_verified:
+                                  type: boolean
+                                reverse_geo_code_failed:
+                                  type: boolean
+                            order_items:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  rewardType:
+                                    type: string
+                                  item_key:
+                                    type: string
+                                  has_variantv2:
+                                    type: boolean
+                                  added_by_user_id:
+                                    type: integer
+                                  added_by_username:
+                                    type: string
+                                  group_user_item_map:
+                                    type: object
+                                    properties: {}
+                                  item_id:
+                                    type: string
+                                  external_item_id:
+                                    type: string
+                                  name:
+                                    type: string
+                                  is_veg:
+                                    type: string
+                                  variants:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties: {}
+                                  addons:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        choice_id:
+                                          type: string
+                                        group_id:
+                                          type: string
+                                        name:
+                                          type: string
+                                        price:
+                                          type: integer
+                                        external_choice_id:
+                                          type: string
+                                        addon_tax_charges:
+                                          type: object
+                                          properties:
+                                            GST:
+                                              type: string
+                                  image_id:
+                                    type: string
+                                  quantity:
+                                    type: string
+                                  free_item_quantity:
+                                    type: string
+                                  total:
+                                    type: string
+                                  subtotal:
+                                    type: string
+                                  final_price:
+                                    type: string
+                                  base_price:
+                                    type: string
+                                  effective_item_price:
+                                    type: string
+                                  packing_charges:
+                                    type: string
+                                  category_details:
+                                    type: object
+                                    properties:
+                                      category:
+                                        type: string
+                                      sub_category:
+                                        type: string
+                                  item_charges:
+                                    type: object
+                                    properties:
+                                      Vat:
+                                        type: string
+                                      Service Charges:
+                                        type: string
+                                      Service Tax:
+                                        type: string
+                                      GST:
+                                        type: string
+                                  item_total_discount:
+                                    type: integer
+                                  item_swiggy_discount_hit_effective:
+                                    type: integer
+                                  item_swiggy_offers_discount:
+                                    type: integer
+                                  item_swiggy_offers_discount_effective:
+                                    type: integer
+                                  item_restaurant_offers_discount:
+                                    type: integer
+                                  item_alliance_offers_discount:
+                                    type: integer
+                                  item_delivery_fee_reversal:
+                                    type: integer
+                                  meal_quantity:
+                                    type: string
+                                  single_variant:
+                                    type: boolean
+                                  in_stock:
+                                    type: integer
+                            old_order_items:
+                              type: array
+                              items:
+                                type: object
+                                properties: {}
+                            order_meals:
+                              type: array
+                              items:
+                                type: object
+                                properties: {}
+                            old_order_meals:
+                              type: array
+                              items:
+                                type: object
+                                properties: {}
+                            order_subscriptions:
+                              type: array
+                              items:
+                                type: object
+                                properties: {}
+                            charges:
+                              type: object
+                              properties:
+                                Vat:
+                                  type: string
+                                Service Charges:
+                                  type: string
+                                Service Tax:
+                                  type: string
+                                Delivery Charges:
+                                  type: string
+                                Total Delivery Fees:
+                                  type: string
+                                Packing Charges:
+                                  type: string
+                                Convenience Fee:
+                                  type: string
+                                Cancellation Fee:
+                                  type: string
+                                GST:
+                                  type: string
+                            free_gifts:
+                              type: array
+                              items:
+                                type: object
+                                properties: {}
+                            is_coupon_applied:
+                              type: boolean
+                            is_coupon_auto_applied:
+                              type: boolean
+                            coupon_applied:
+                              type: string
+                            offers_data:
+                              type: string
+                            order_time:
+                              type: string
+                            customer_id:
+                              type: string
+                            order_status:
+                              type: string
+                            post_status:
+                              type: string
+                            order_type:
+                              type: string
+                            post_type:
+                              type: string
+                            post_name:
+                              type: string
+                            order_placement_status:
+                              type: string
+                            billing_address_id:
+                              type: string
+                            sla_time:
+                              type: string
+                            delivery_boy:
+                              type: object
+                              properties:
+                                trackable:
+                                  type: integer
+                                id:
+                                  type: string
+                                name:
+                                  type: string
+                                mobile:
+                                  type: string
+                                image_url:
+                                  type: 'null'
+                            restaurant_id:
+                              type: string
+                            restaurant_name:
+                              type: string
+                            restaurant_address:
+                              type: string
+                            restaurant_locality:
+                              type: string
+                            restaurant_type:
+                              type: string
+                            restaurant_city_code:
+                              type: string
+                            restaurant_city_name:
+                              type: string
+                            restaurant_area_code:
+                              type: string
+                            restaurant_cuisine:
+                              type: array
+                              items:
+                                type: string
+                            restaurant_closing_in_min:
+                              type: integer
+                            restaurant_closed:
+                              type: boolean
+                            payment_method:
+                              type: string
+                            payment_method_involved:
+                              type: string
+                            payment_txn_created_on:
+                              type: string
+                            payment_transactions:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  paymentMethod:
+                                    type: string
+                                  paymentMethodDisplayName:
+                                    type: string
+                                  transactionId:
+                                    type: string
+                                  amount:
+                                    type: string
+                                  paymentMeta:
+                                    type: object
+                                    properties:
+                                      bankName:
+                                        type: 'null'
+                                      binNumber:
+                                        type: 'null'
+                                      pgType:
+                                        type: 'null'
+                                      cardNumber:
+                                        type: 'null'
+                                      payerVpa:
+                                        type: 'null'
+                                      intentApp:
+                                        type: 'null'
+                                      paymentQRUrl:
+                                        type: 'null'
+                                      extPGResponse:
+                                        type: string
+                                  transactionStatus:
+                                    type: string
+                                  swiggyTransactionId:
+                                    type: string
+                                  pgTransactionId:
+                                    type: string
+                                  couponApplied:
+                                    type: string
+                                  paymentGateway:
+                                    type: 'null'
+                                  pgResponseTime:
+                                    type: string
+                                  errorDetails:
+                                    type: 'null'
+                            order_delivery_status:
+                              type: string
+                            ordered_time_in_seconds:
+                              type: integer
+                            delivered_time_in_seconds:
+                              type: string
+                            delivery_time_in_seconds:
+                              type: string
+                            order_total:
+                              type: integer
+                            order_total_with_tip:
+                              type: integer
+                            net_total:
+                              type: integer
+                            item_total:
+                              type: integer
+                            restaurant_fulfilment_charges:
+                              type: integer
+                            subscription_total:
+                              type: integer
+                            subscription_tax:
+                              type: integer
+                            subscription_total_without_tax:
+                              type: integer
+                            original_order_total:
+                              type: integer
+                            swiggy_money:
+                              type: integer
+                            offer_with_reward_benefit_sink:
+                              type: boolean
+                            trade_discount_reward_amount:
+                              type: integer
+                            discount_cap_trade_discount:
+                              type: integer
+                            order_tax:
+                              type: number
+                            free_shipping:
+                              type: string
+                            order_discount_without_freebie:
+                              type: integer
+                            order_discount:
+                              type: integer
+                            coupon_discount:
+                              type: integer
+                            trade_discount:
+                              type: integer
+                            order_discount_effective:
+                              type: integer
+                            coupon_discount_effective:
+                              type: integer
+                            trade_discount_effective:
+                              type: integer
+                            batch_opt_in_discount:
+                              type: integer
+                            batch_opt_in:
+                              type: string
+                            free_delivery_discount_hit:
+                              type: integer
+                            delivery_discount_hit:
+                              type: integer
+                            freebie_discount_hit:
+                              type: integer
+                            super_specific_discount:
+                              type: integer
+                            has_rating:
+                              type: string
+                            show_rate_us:
+                              type: boolean
+                            restaurant_order_rating:
+                              type: integer
+                            order_spending:
+                              type: string
+                            order_incoming:
+                              type: string
+                            waive_off_amount:
+                              type: integer
+                            edit_refund_amount:
+                              type: integer
+                            order_restaurant_bill:
+                              type: string
+                            restaurant_lat_lng:
+                              type: string
+                            restaurant_customer_distance:
+                              type: string
+                            customer_care_number:
+                              type: string
+                            pg_response_time:
+                              type: string
+                            converted_to_cod:
+                              type: boolean
+                            last_failed_order_id:
+                              type: integer
+                            order_delivery_charge:
+                              type: integer
+                            order_delivery_charge_base_price:
+                              type: integer
+                            convenience_fee:
+                              type: string
+                            discounted_total_delivery_charge_actual:
+                              type: string
+                            customer_user_agent:
+                              type: string
+                            overbooking:
+                              type: string
+                            swiggy_discount_hit_effective:
+                              type: integer
+                            swiggy_offers_discount:
+                              type: integer
+                            swiggy_offers_discount_effective:
+                              type: integer
+                            restaurant_offers_discount:
+                              type: integer
+                            alliance_offers_discount:
+                              type: integer
+                            payment_confirmation_channel:
+                              type: string
+                            billing_lat:
+                              type: string
+                            billing_lng:
+                              type: string
+                            payment_txn_id:
+                              type: string
+                            payment_partner_order_id:
+                              type: string
+                            coupon_code:
+                              type: string
+                            with_de:
+                              type: boolean
+                            restaurant_new_slug:
+                              type: string
+                            distance_calc_method:
+                              type: string
+                            is_partner_enable:
+                              type: boolean
+                            partner_id:
+                              type: string
+                            type_of_partner:
+                              type: integer
+                            prep_time:
+                              type: string
+                            restaurant_has_inventory:
+                              type: string
+                            order_payment_method:
+                              type: string
+                            pay_by_system_value:
+                              type: boolean
+                            de_pickedup_refund:
+                              type: integer
+                            agreement_type:
+                              type: string
+                            is_ivr_enabled:
+                              type: string
+                            is_refund_initiated:
+                              type: integer
+                            restaurant_cover_image:
+                              type: string
+                            restaurant_area_name:
+                              type: string
+                            cust_lat_lng:
+                              type: object
+                              properties:
+                                lat:
+                                  type: string
+                                lng:
+                                  type: string
+                            key:
+                              type: string
+                            is_assured:
+                              type: integer
+                            delayed_placing:
+                              type: integer
+                            is_long_distance:
+                              type: boolean
+                            on_time:
+                              type: boolean
+                            sla_difference:
+                              type: string
+                            actual_sla_time:
+                              type: string
+                            payment_txn_status:
+                              type: string
+                            restaurant_taxation_type:
+                              type: string
+                            rain_mode:
+                              type: string
+                            promise_id:
+                              type: string
+                            is_super_long_distance:
+                              type: boolean
+                            restaurant_gst_category:
+                              type: string
+                            payment:
+                              type: string
+                            device_id:
+                              type: string
+                            swuid:
+                              type: string
+                            sid:
+                              type: string
+                            cancellation_policy_promise_id:
+                              type: string
+                            is_replicated:
+                              type: boolean
+                            is_cancellable:
+                              type: boolean
+                            cancellation_fee_collected:
+                              type: integer
+                            cancellation_fee_applied:
+                              type: integer
+                            cancellation_fee_collected_total:
+                              type: integer
+                            is_cancellation_fee_already_reverted:
+                              type: boolean
+                            previous_cancellation_fee:
+                              type: integer
+                            commission_on_full_bill:
+                              type: boolean
+                            is_select:
+                              type: boolean
+                            is_dormant_user:
+                              type: boolean
+                            is_first_order_delivered:
+                              type: boolean
+                            first_order:
+                              type: boolean
+                            rendering_details:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  type:
+                                    type: string
+                                  key:
+                                    type: string
+                                  intermediateText:
+                                    type: string
+                                  value:
+                                    type: string
+                                  hierarchy:
+                                    type: integer
+                                  currency:
+                                    type: string
+                                  display_text:
+                                    type: string
+                                  info_text:
+                                    type: string
+                                  icon:
+                                    type: string
+                                  discount_message:
+                                    type: string
+                            mCancellationTime:
+                              type: integer
+                            configurations:
+                              type: object
+                              properties: {}
+                            GST_on_discounted_total_delivery_fee:
+                              type: object
+                              properties: {}
+                            GST_on_subscription:
+                              type: object
+                              properties: {}
+                            discounted_total_delivery_charge_gst_expression:
+                              type: string
+                            subscription_gst_expression:
+                              type: string
+                            success_message:
+                              type: string
+                            success_message_info:
+                              type: string
+                            success_title:
+                              type: string
+                            success_message_type:
+                              type: string
+                            threshold_fee:
+                              type: integer
+                            distance_fee:
+                              type: integer
+                            time_fee:
+                              type: integer
+                            special_fee:
+                              type: integer
+                            threshold_fee_effective:
+                              type: integer
+                            distance_fee_effective:
+                              type: integer
+                            time_fee_effective:
+                              type: integer
+                            special_fee_effective:
+                              type: integer
+                            delivery_fee_details:
+                              type: object
+                              properties:
+                                delfee_after_reversal:
+                                  type: object
+                                  properties:
+                                    currency:
+                                      type: string
+                                    value:
+                                      type: integer
+                                delfee_before_tax:
+                                  type: object
+                                  properties:
+                                    currency:
+                                      type: string
+                                    value:
+                                      type: integer
+                                delfee_after_tax:
+                                  type: object
+                                  properties:
+                                    currency:
+                                      type: string
+                                    value:
+                                      type: integer
+                                delfee_tax_details:
+                                  type: object
+                                  properties:
+                                    total_tax:
+                                      type: object
+                                      properties:
+                                        tax_type:
+                                          type: string
+                                        tax_name:
+                                          type: string
+                                        tax_value:
+                                          type: string
+                                        tax_value_type:
+                                          type: string
+                                        calculated_tax_value:
+                                          type: object
+                                          properties:
+                                            currency:
+                                              type: string
+                                            value:
+                                              type: integer
+                                    tax_breakup:
+                                      type: array
+                                      items:
+                                        type: object
+                                        properties:
+                                          tax_type:
+                                            type: string
+                                          tax_name:
+                                            type: string
+                                          tax_value:
+                                            type: string
+                                          tax_value_type:
+                                            type: string
+                                          calculated_tax_value:
+                                            type: object
+                                            properties:
+                                              currency:
+                                                type: string
+                                              value:
+                                                type: integer
+                                    is_tax_exclusive:
+                                      type: boolean
+                            total_tax:
+                              type: number
+                            delivery_fee_reversal_breakup:
+                              type: object
+                              properties:
+                                thresholdFee:
+                                  type: integer
+                                distanceFee:
+                                  type: integer
+                                timeFee:
+                                  type: integer
+                                specialFee:
+                                  type: integer
+                            delivery_fee_reversal:
+                              type: integer
+                            discounted_total_delivery_fee:
+                              type: integer
+                            free_del_break_up:
+                              type: object
+                              properties:
+                                thresholdFee:
+                                  type: integer
+                                distanceFee:
+                                  type: integer
+                                timeFee:
+                                  type: integer
+                                specialFee:
+                                  type: integer
+                                rainFee:
+                                  type: boolean
+                            initiation_source:
+                              type: integer
+                            order_tags:
+                              type: array
+                              items:
+                                type: object
+                                properties: {}
+                            juspay_meta:
+                              type: object
+                              properties: {}
+                            tip_detail_list:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  type:
+                                    type: string
+                                  experimentId:
+                                    type: string
+                            user_details:
+                              type: object
+                              properties:
+                                user_id:
+                                  type: integer
+                                name:
+                                  type: string
+                                email_id:
+                                  type: string
+                                mobile:
+                                  type: string
+                            default_delivery_text:
+                              type: string
+                            additional_payment_details:
+                              type: array
+                              items:
+                                type: object
+                                properties: {}
+                            group_tag_details:
+                              type: array
+                              items:
+                                type: object
+                                properties: {}
+                            updated_at:
+                              type: string
+                            category_info:
+                              type: string
+                            user_flow_info:
+                              type: object
+                              properties:
+                                flow_type:
+                                  type: string
+                                flow_data:
+                                  type: object
+                                  properties: {}
+                            conservative_last_mile_distance:
+                              type: integer
+                            selected_sla_option:
+                              type: string
+                            priority_delivery_fee:
+                              type: integer
+                            is_gourmet:
+                              type: boolean
+                            address_changed_post_order:
+                              type: string
+                            post_order_address_change_attempted_at:
+                              type: integer
+                            restaurant_packing_charges:
+                              type: integer
+                            convenience_fees:
+                              type: integer
+                            is_scheduled:
+                              type: boolean
+                            paymentTransactions:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  paymentMethod:
+                                    type: string
+                                  paymentMethodDisplayName:
+                                    type: string
+                                  transactionId:
+                                    type: string
+                                  amount:
+                                    type: string
+                                  paymentMeta:
+                                    type: object
+                                    properties:
+                                      bankName:
+                                        type: 'null'
+                                      binNumber:
+                                        type: 'null'
+                                      pgType:
+                                        type: 'null'
+                                      cardNumber:
+                                        type: 'null'
+                                      payerVpa:
+                                        type: 'null'
+                                      intentApp:
+                                        type: 'null'
+                                      paymentQRUrl:
+                                        type: 'null'
+                                      extPGResponse:
+                                        type: string
+                                  transactionStatus:
+                                    type: string
+                                  swiggyTransactionId:
+                                    type: string
+                                  pgTransactionId:
+                                    type: string
+                                  couponApplied:
+                                    type: string
+                                  paymentGateway:
+                                    type: 'null'
+                                  pgResponseTime:
+                                    type: string
+                                  errorDetails:
+                                    type: 'null'
+                      is_first_order_delivered:
+                        type: integer
+                  errorCodes:
+                    type: 'null'
+                  tid:
+                    type: string
+                  sid:
+                    type: string
+                  deviceId:
+                    type: string
+                  successful:
+                    type: boolean
+      operationId: get-order-getSingleOrder
+      security:
+        - tid: []
+        - token: []
+      description: Returns details for a single Swiggy Order.
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: order_id
+          description: Order ID
+components:
+  schemas: {}
+  securitySchemes:
+    tid:
+      name: tid
+      type: apiKey
+      in: header
+      description: |
+        Transaction ID perhaps
+    sid:
+      name: sid
+      type: apiKey
+      in: header
+      description: Session ID
+    token:
+      name: token
+      type: apiKey
+      in: header
+security: []

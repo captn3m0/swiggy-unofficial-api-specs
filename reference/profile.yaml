@@ -1,0 +1,662 @@
+openapi: 3.1.0
+x-stoplight:
+  id: zhanzuqsruxf8
+info:
+  title: Unofficial Swiggy Profile API
+  version: '1.0'
+  summary: 'Swiggy OpenAPI Specification for the Profile API, used for authentication.'
+  contact:
+    name: Nemo
+    url: 'https://captnemo.in/contact/'
+    email: swiggy.openapi@captnemo.in
+  description: Welcome to the unofficial Swiggy API OpenAPI Specification.
+servers:
+  - url: 'https://profile.swiggy.com/api'
+    description: Profile Service
+paths:
+  /v3/app/sms_otp:
+    get:
+      summary: Request OTP (SMS)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    statusCode: 0
+                    statusMessage: done successfully
+                    data: []
+                    tid: a5472ea6-3d15-4fa9-9d74-064713379f85
+                    sid: 5xqafc42-189f-44de-84dd-a6cd83040eaf
+                    deviceId: 45a1f55f-5aea-4377-b438-273ac3cd50ad
+                properties:
+                  statusCode:
+                    type: integer
+                  statusMessage:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                  tid:
+                    type: string
+                  sid:
+                    type: string
+                  deviceId:
+                    type: string
+                required:
+                  - statusCode
+                  - statusMessage
+                  - tid
+                  - sid
+                  - deviceId
+      operationId: sms-otp
+      parameters:
+        - schema:
+            type: string
+            minLength: 10
+            maxLength: 10
+            pattern: \d+
+            format: regex
+            example: '9999111199'
+          in: query
+          name: mobile
+          description: Mobile Number
+          required: true
+      description: 'Request OTP over SMS  '
+    parameters: []
+  /v3/app/request_call_verification:
+    post:
+      summary: Request OTP (Call)
+      operationId: call-otp
+      responses:
+        '200':
+          description: Call Initiated
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    statusCode: 0
+                    statusMessage: done successfully
+                    data: []
+                    tid: 68473d1d-5eb8-4f66-8e68-322624f1fadb
+                    sid: 5xqba5ad-5f2d-4856-8139-8e976003dc40
+                    deviceId: 6c221ce5-eedd-4cda-814a-0b31b887af75
+                properties:
+                  statusCode:
+                    type: integer
+                  statusMessage:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                  tid:
+                    type: string
+                  sid:
+                    type: string
+                  deviceId:
+                    type: string
+                required:
+                  - statusCode
+                  - statusMessage
+                  - tid
+                  - sid
+                  - deviceId
+      description: Request OTP (Call). You need to accept the call and press 1 to confirm login.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mobile:
+                  $ref: '#/components/schemas/Mobile-Number'
+        description: Mobile Number
+    parameters: []
+  /v3/app/login/call_verification_status:
+    post:
+      summary: login-call-verification-status
+      operationId: post-login-call_verification_status
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  statusMessage:
+                    type: string
+                  tid:
+                    type: string
+                  sid:
+                    type: string
+                  deviceId:
+                    type: string
+                x-examples:
+                  Example 1:
+                    statusCode: 21
+                    statusMessage: Oh no! No response was received for previous call. Please try again.
+                    tid: e93d9a33-4e12-4c70-b60d-b1d434b7fbdd
+                    sid: 5x4850c0-d0db-4d14-a253-59ca042fe609
+                    deviceId: DB05B1CB-12ED-41FA-BC5B-93825C67E385
+              examples:
+                No Response:
+                  value:
+                    statusCode: 21
+                    statusMessage: Oh no! No response was received for previous call. Please try again.
+                    tid: e93d9a33-4e12-4c70-b60d-b1d434b7fbdd
+                    sid: 5x4850c0-d0db-4d14-a253-59ca042fe609
+                    deviceId: DB05B1CB-12ED-41FA-BC5B-93825C67E385
+                Attempts Exceeded:
+                  value:
+                    statusCode: 1
+                    statusMessage: Number of login attempts exceeded. Please request for the OTP again.
+                    tid: 68473d1d-5eb8-4f66-8e68-322624f1fadb
+                    sid: 5xqba5ad-5f2d-4856-8139-8e976003dc40
+                    deviceId: 9ce524c1-2cbc-4977-b836-45c7d2ccf499
+                Login Declined (Pressed 2):
+                  value:
+                    statusCode: 22
+                    statusMessage: Oh no! Wrong key was pressed in last call. Please try again.
+                    tid: 68473d1d-5eb8-4f66-8e68-322624f1fadb
+                    sid: 5xqba5ad-5f2d-4856-8139-8e976003dc40
+                    deviceId: dedb1d9f-85d6-4509-83e7-a79b63e632e7
+      parameters: []
+      security:
+        - tid: []
+      description: 'Please get the TID from the [request_call_verification](profile.yaml/paths/~1request_call_verification) response.  '
+    parameters: []
+  /v2/user/profile:
+    get:
+      summary: Get User Profile
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  statusMessage:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      addresses:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            user_id:
+                              type: integer
+                            default:
+                              type: integer
+                            name:
+                              type: string
+                            mobile:
+                              type: string
+                            address:
+                              type: string
+                            landmark:
+                              type: string
+                            area:
+                              type: string
+                            lat:
+                              type: string
+                            lng:
+                              type: string
+                            created_on:
+                              type: string
+                            updated_on:
+                              type: string
+                            updated_by:
+                              type: string
+                            is_deleted:
+                              type: integer
+                            is_edited:
+                              type: integer
+                            annotation:
+                              type: string
+                            flat_no:
+                              type: string
+                            city:
+                              type: string
+                            reverse_geo_code_failed:
+                              type: integer
+                            sort_score:
+                              type: integer
+                      customer_id:
+                        type: integer
+                      email:
+                        type: string
+                      mobile:
+                        type: string
+                      name:
+                        type: string
+                      token:
+                        type: string
+                      referral_code:
+                        type: string
+                      verified:
+                        type: boolean
+                      preferences:
+                        type: object
+                        properties:
+                          sms:
+                            type: boolean
+                      emailVerified:
+                        type: boolean
+                      user_registered:
+                        type: string
+                      juspay:
+                        type: object
+                        properties:
+                          merchant_id:
+                            type: string
+                          merchant_name:
+                            type: string
+                          return_to_url:
+                            type: string
+                          cards:
+                            type: object
+                            properties:
+                              customer_id:
+                                type: integer
+                              merchantId:
+                                type: string
+                              cards:
+                                type: array
+                                items:
+                                  type: object
+                                  properties: {}
+                              merchant_info:
+                                type: object
+                                properties:
+                                  merchant_id:
+                                    type: string
+                                  merchant_name:
+                                    type: string
+                                  return_to_url:
+                                    type: string
+                      enabled:
+                        type: integer
+                      disabled_reason:
+                        type: string
+                      optional_map:
+                        type: object
+                        properties:
+                          SWIGGY_PAY:
+                            type: object
+                            properties:
+                              meta:
+                                type: object
+                                properties:
+                                  schemaVersion:
+                                    type: string
+                              value:
+                                type: object
+                                properties:
+                                  swiggyPayEnabled:
+                                    type: boolean
+                          SUPER_DETAILS:
+                            type: object
+                            properties:
+                              meta:
+                                type: object
+                                properties:
+                                  schemaVersion:
+                                    type: string
+                          IS_SUPER:
+                            type: object
+                            properties:
+                              meta:
+                                type: object
+                                properties:
+                                  schemaVersion:
+                                    type: string
+                              value:
+                                type: object
+                                properties:
+                                  superStatus:
+                                    type: string
+                      address_sort:
+                        type: object
+                        properties:
+                          location_weight:
+                            type: number
+                          address_weight:
+                            type: number
+                      super_data:
+                        type: object
+                        properties:
+                          user_status:
+                            type: string
+                      communication_subscription_data:
+                        type: object
+                        properties:
+                          all:
+                            type: object
+                            properties:
+                              communication_types:
+                                type: object
+                                properties:
+                                  promotion:
+                                    type: object
+                                    properties:
+                                      communication_channels:
+                                        type: object
+                                        properties:
+                                          whatsapp:
+                                            type: object
+                                            properties:
+                                              enabled:
+                                                type: boolean
+                                          mail:
+                                            type: object
+                                            properties:
+                                              enabled:
+                                                type: boolean
+                                          sms:
+                                            type: object
+                                            properties:
+                                              enabled:
+                                                type: boolean
+                                          pn:
+                                            type: object
+                                            properties:
+                                              enabled:
+                                                type: boolean
+                  tid:
+                    type: string
+                  sid:
+                    type: string
+                  deviceId:
+                    type: string
+              examples: {}
+      operationId: get-user-profile
+      parameters:
+        - schema:
+            type: string
+            format: csv
+            example: 'IS_SUPER,SUPER_DETAILS,SWIGGY_PAY'
+          in: query
+          name: optionalKeys
+          description: 'Combination of IS_SUPER,SUPER_DETAILS,SWIGGY_PAY'
+        - schema:
+            type: number
+            maximum: 999
+            minimum: 400
+          in: header
+          name: version-code
+          required: true
+          description: Schema Version. Send 450 or higher
+        - schema:
+            type: number
+            default: 0
+            example: 0
+          in: header
+          name: latitude
+          required: true
+        - schema:
+            type: string
+            default: SWIGGY
+            example: SWIGGY
+          in: header
+          name: deviceId
+          required: true
+        - schema:
+            type: string
+            default: '0'
+            example: '0'
+          in: header
+          name: longitude
+          required: true
+        - schema:
+            type: string
+            example: SWIGGY
+            default: SWIGGY
+          in: header
+          name: sid
+          required: true
+      description: Returns user profile information
+      security:
+        - tid: []
+        - token: []
+  /v3/app/login/verify:
+    post:
+      summary: Submit OTP for verification
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  statusMessage:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      preferences:
+                        type: object
+                        properties:
+                          sms:
+                            type: boolean
+                      addresses:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            area:
+                              type: string
+                            updated_on:
+                              type: string
+                            annotation:
+                              type: string
+                            address:
+                              type: string
+                            reverse_geo_code_failed:
+                              type: boolean
+                            lng:
+                              type: string
+                            city:
+                              type: string
+                            mobile:
+                              type: string
+                            is_edited:
+                              type: string
+                            default:
+                              type: string
+                            is_deleted:
+                              type: string
+                            flat_no:
+                              type: string
+                            created_on:
+                              type: string
+                            user_id:
+                              type: string
+                            name:
+                              type: string
+                            updated_by:
+                              type: string
+                            id:
+                              type: string
+                            landmark:
+                              type: string
+                            lat:
+                              type: string
+                      swiggy_one_device_limit:
+                        type: string
+                      verified:
+                        type: boolean
+                      mobile:
+                        type: string
+                      juspay:
+                        type: object
+                        properties:
+                          cards:
+                            type: object
+                            properties:
+                              cards:
+                                type: array
+                                items:
+                                  type: object
+                              merchantId:
+                                type: string
+                              customer_id:
+                                type: string
+                          merchant_name:
+                            type: string
+                          merchant_id:
+                            type: string
+                          return_to_url:
+                            type: string
+                      otp:
+                        type: string
+                      attempt:
+                        type: integer
+                      token:
+                        type: string
+                      emailVerified:
+                        type: boolean
+                      swiggy_one_abuse_breach:
+                        type: boolean
+                      signupSource:
+                        type: string
+                      referral_code:
+                        type: string
+                      name:
+                        type: string
+                      hasWallet:
+                        type: boolean
+                      customer_id:
+                        type: string
+                      email:
+                        type: string
+                      mobileUpdateVerified:
+                        type: boolean
+                      optional_map:
+                        type: object
+                        properties:
+                          SWIGGY_PAY:
+                            type: object
+                            properties:
+                              meta:
+                                type: object
+                                properties:
+                                  schemaVersion:
+                                    type: string
+                              value:
+                                type: object
+                                properties:
+                                  swiggyPayEnabled:
+                                    type: boolean
+                          SUPER_DETAILS:
+                            type: object
+                            properties:
+                              meta:
+                                type: object
+                                properties:
+                                  schemaVersion:
+                                    type: string
+                          IS_SUPER:
+                            type: object
+                            properties:
+                              meta:
+                                type: object
+                                properties:
+                                  schemaVersion:
+                                    type: string
+                              value:
+                                type: object
+                                properties:
+                                  superStatus:
+                                    type: string
+                  tid:
+                    type: string
+                  sid:
+                    type: string
+                  deviceId:
+                    type: string
+                required:
+                  - statusCode
+                  - statusMessage
+                  - tid
+                  - sid
+                  - deviceId
+              examples:
+                Invalid OTP:
+                  value:
+                    statusCode: 999
+                    statusMessage: Oh no! This mobile number is invalid.
+                    tid: c1a58446-bf5b-4763-8786-5900e63ab199
+                    sid: 5xta197e-62fb-4793-b80a-bb493c86cd1a
+                    deviceId: 2f243354-df31-48c2-a3d7-bcbb59cdaa4f
+      operationId: submit-otp
+      description: 'Submit OTP to get valid TID and Access Token (`data.token` in the response), and `tid`, `sid` as well. Use these for further authentication anywhere in other APIs.'
+      security:
+        - tid: []
+        - sid: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                otp:
+                  type: string
+              required:
+                - otp
+            examples:
+              OTP:
+                value:
+                  otp: '634353'
+        description: OTP
+components:
+  schemas:
+    Mobile-Number:
+      title: Mobile-Number
+      x-stoplight:
+        id: ao88rgcfnn718
+      type: string
+      pattern: \d+
+      minLength: 10
+      maxLength: 10
+      description: valid 10 digit mobile number
+      examples:
+        - 9999111199
+  securitySchemes:
+    tid:
+      name: tid
+      type: apiKey
+      in: header
+      description: |
+        Transaction ID perhaps
+    token:
+      name: token
+      type: apiKey
+      in: header
+      description: Session ID
+    sid:
+      name: sid
+      type: apiKey
+      in: header
+security: []
