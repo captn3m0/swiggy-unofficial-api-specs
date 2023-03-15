@@ -16,7 +16,7 @@ info:
     2. [Orders](#/reference/disc.yaml)
     2. [Instamart](#/reference/instamart.yaml)
 
-    There is a guide available at [docs/How-to-get-your-Order-Data-from-Swiggy.html] as well.
+    There is a guide available on [How to get your data from Swiggy](docs/How-to-get-your-Order-Data-from-Swiggy.html) as well.
 servers:
   - url: 'https://profile.swiggy.com/api'
     description: Profile Service
