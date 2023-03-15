@@ -10,14 +10,9 @@ info:
     url: 'https://captnemo.in/contact/'
     email: swiggy.openapi@captnemo.in
   description: |
-      Welcome to the unofficial Swiggy API OpenAPI Specification.
-      Please make sure you check all the APIs:
-      1. [Profile](#/reference/profile.yaml)
-      2. [Application](#/reference/app.yaml)
-      2. [Orders](#/reference/disc.yaml)
-      2. [Instamart](#/reference/instamart.yaml)
+    Welcome to the unofficial Swiggy API OpenAPI Specification. Please make sure you check all the APIs in the topbar
 
-      There is a guide available on [How to get your data from Swiggy](docs/How-to-get-your-Order-Data-from-Swiggy.html) as well.
+    There is a guide available on [How to get your data from Swiggy](docs/How-to-get-your-Order-Data-from-Swiggy.html) as well.
 servers:
   - url: 'https://dash.swiggy.com/api/v1'
 paths:
