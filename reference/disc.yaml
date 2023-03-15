@@ -22,7 +22,7 @@ paths:
       tags: []
       responses:
         '200':
-          description: 'This is a Protobuf Response, please see [`swiggy.proto`](swiggy.protobuf) protobuf schema to parse the same.'
+          description: 'This is a Protobuf Response, please see [`swiggy.proto`](swiggy.proto) schema to parse the same.'
           content:
             application/x-protobuf:
               schema:
