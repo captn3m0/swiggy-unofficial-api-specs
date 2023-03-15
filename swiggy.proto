@@ -1,0 +1,160 @@
+syntax = "proto3";
+
+message Root {
+    string tid = 1;
+    string sid = 2;
+    string device_id = 3;
+    Timestamp ServerTime = 6;
+    string jid = 8;
+    Response response = 21;
+}
+
+message Timestamp {
+    int32 seconds = 1;
+    int32 nanoseconds = 2;
+}
+
+message Data {
+    Card card = 1;
+}
+
+message Card {
+    OrderCard ordercard = 1;
+}
+
+message OrderCard {
+    string type = 1;
+    OrderDetails OrderDetails = 2;
+}
+
+message OrderDetails {
+    string orderid = 1;
+    string restaurant_id = 2;
+    string RestaurantName= 3;
+    string RestaurantAreaName= 4;
+    string OrderTotal= 5;
+    string OrderStatus= 6;
+    string OrderDeliveryStatus= 7;
+    string OrderType= 8;
+    int32 OrderStatusIcon= 9;
+    int32 PriceArrowIcon = 10;
+    int32 DottedLineIcon = 11;
+    string OrderedItems = 12;
+    string OrderedTime = 13;
+    int64 IsActiveOrder = 14;
+    Action Actions = 15;
+    RatingInfo FoodRating = 16;
+    RatingInfo DeliveryRating = 17;
+}
+
+message RatingInfo {
+    int32 IsRatingApplicable = 1;
+    string text = 2;
+    // Chunk RatingField = 3;
+    string RatingText = 4;
+    int64 StarIcon = 5;
+    string AssetId = 6;
+}
+
+message Action {
+    int64 Type = 1;
+    int64 Priority = 2;
+    string Title = 3;
+    string Subtitle = 4;
+    string SuperscriptText = 5;
+    int64 IsEnabled = 6;
+    // Chunk LINK = 7;
+    // Chunk CTA_META = 8;
+    ReorderMeta Reorder = 9;
+    RateOrderMeta RateOrder = 10;
+    RateFoodMeta RateFood = 11;
+    RateDeliveryMeta RateDelivery = 12;
+    RefundDetailsMeta RefundDetails = 13;
+}
+
+message ReorderMeta {
+    OrderItem OrderItems = 1;
+    string RestarantCoverImageID = 3;
+}
+
+message OrderItem {
+    string ItemKey = 1;
+    string ItemID = 7;
+    string Name = 9;
+    string veg = 10;
+    Variant Variants = 11;
+    Addon Addons = 12;
+    string Quantity= 14;
+    string Free_item_quantity= 15;
+    string total_amount = 16;
+    string subtotal_amount = 17;
+    string Packing_charges= 21;
+    CategoryDetails category_details = 22;
+    string reward = 37;
+    Attributes attributes = 44;
+}
+
+message Variant {
+    int32 variation_id = 1;
+    int32 group_id_1 = 2;
+    string text = 3;
+    float price = 4;
+    string external_choice_id = 5;
+    string group_id_ = 6;
+    TaxCharges tax_charges = 7;
+    TaxExpr tax_expr = 8;
+    GSTDetails GSTDetails = 9;
+    Attributes attributes = 10;
+}
+
+message TaxCharges {
+    string vat = 1;
+    string ServiceCharge = 2;
+    string ServiceTax = 3;
+    string GST = 4;
+}
+
+/** TODO, but didn't feel important **/
+message Attributes {}
+message RateOrderMeta {}
+message RateFoodMeta {}
+message RateDeliveryMeta {}
+message RefundDetailsMeta {}
+
+message CategoryDetails {
+    string category = 1;
+    string subcategory = 2;
+}
+
+message Addon {
+    TaxCharges tax_charges = 7;
+    TaxExpr tax_expr = 8;
+    int32 ChoiceId = 1;
+    int32 ExternalChoiceId = 5;
+    int32 ExternalGroupId = 6;
+    int32 GroupId = 2;
+    string Name = 3;
+    float Price = 4;
+    GSTDetails gst_details = 9;
+}
+
+message TaxExpr {
+    string ServiceCharges = 1;
+    string SBC = 2;
+    string KKC = 3;
+    string SGST = 4;
+    string IGST = 5;
+    string CGST = 6;
+    string gst_inclusive = 7;
+}
+
+message GSTDetails {
+    int32 Rate = 1;
+    string Name = 2;
+    float TaxValue = 3;
+}
+
+message Response {
+    string StatusMsg = 1;
+    repeated Data data = 3;
+}
